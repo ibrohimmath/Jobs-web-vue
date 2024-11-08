@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/JobView.vue"),
   },
   {
+    path: "/jobs/add",
+    name: "job-add",
+    component: () => import("@/views/AddJobView.vue"),
+  },
+  {
     path: "/:catchAll(.*)",
     name: "not-found",
     component: () => import("@/views/NotFoundView.vue"),
