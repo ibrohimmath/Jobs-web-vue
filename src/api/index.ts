@@ -38,7 +38,7 @@ class ApiService {
     );
   }
 
-  public async sendRequest(method: string, url: string, params?: any, data?: any, config?: AxiosRequestConfig): Promise<any> {
+  public async sendRequest(method: string, url: string, data?: any, params?: any, config?: AxiosRequestConfig): Promise<any> {
     if (!url) {
       throw new Error("Url was not found");
       return;
