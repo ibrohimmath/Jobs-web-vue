@@ -77,6 +77,7 @@
               class="border rounded w-full py-2 px-3" placeholder="Optional phone for applicants" />
           </div>
 
+
           <div>
             <button
               class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
@@ -85,6 +86,8 @@
             </button>
           </div>
         </form>
+
+        <!-- <toast type="success" message="Added" /> -->
       </div>
     </div>
   </section>
@@ -110,10 +113,12 @@ const form = reactive<JobRequest>({
   }
 });
 
+
 const addJob = async () => {
   await ApiServiceInstance.sendRequest("post", ApiUrls.JOBS, form);
   resetForm();
-  alert("Added");
+  // alert("Added");
+  addToast("Added new job");
   router.push({ name: "jobs" });
 };
 

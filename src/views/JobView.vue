@@ -59,7 +59,7 @@
             <router-link :to="`/jobs/edit/${state.job.id}`" class=" bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full
             focus:outline-none focus:shadow-outline mt-4 block">Edit
               Job</router-link>
-            <button
+            <button @click.prevent="deleteJob"
               class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
               Delete Job
             </button>
@@ -73,11 +73,10 @@
 </template>
 <script setup lang="ts">
 import { ApiServiceInstance } from "@/api";
-import Loader from "@/components/Loader.vue";
+import router from "@/router";
 import { onMounted, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { ApiUrls } from "../api/apiUrls";
-import BackButton from "../components/BackButton.vue";
 
 const route = useRoute();
 const jobId = route.params.id;
@@ -85,6 +84,16 @@ const state = reactive({
   job: {},
   isLoading: true
 });
+
+const deleteJob = async () => {
+  try {
+    await ApiServiceInstance.sendRequest("delete", `${ApiUrls.JOBS}/${jobId}`);
+    alert("Deleted");
+    router.push({ name: "jobs" });
+  } catch (err) {
+    alert("Something error happened");
+  }
+};
 
 onMounted(async () => {
   try {
