@@ -2,8 +2,8 @@
   <section class="bg-green-50">
     <div class="container m-auto max-w-2xl py-24">
       <div class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-        <form @submit.prevent="addJob">
-          <h2 class="text-3xl text-center font-semibold mb-6">Add Job</h2>
+        <form @submit.prevent="addOrEditJob">
+          <h2 class="text-3xl text-center font-semibold mb-6">{{ !isEdit ? "Add Job" : "Edit Job" }}</h2>
 
           <div class="mb-4">
             <label for="type" class="block text-gray-700 font-bold mb-2">Job Type</label>
@@ -82,12 +82,10 @@
             <button
               class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
               type="submit">
-              Add Job
+              Submit
             </button>
           </div>
         </form>
-
-        <!-- <toast type="success" message="Added" /> -->
       </div>
     </div>
   </section>
@@ -96,8 +94,13 @@
 import { ApiServiceInstance } from "@/api";
 import type { JobRequest } from "@/models/JobRequest";
 import router from "@/router";
-import { reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
+import { useRoute } from "vue-router";
 import { ApiUrls } from "../api/apiUrls";
+
+const route = useRoute();
+
+const isEdit = ref<boolean>(false);
 
 const form = reactive<JobRequest>({
   type: "Full-time",
@@ -113,18 +116,44 @@ const form = reactive<JobRequest>({
   }
 });
 
+const assignForm = (response: any) => {
+  form.type = response.type;
+  form.title = response.title;
+  form.description = response.description;
+  form.salary = response.salary;
+  form.location = response.location;
+  form.company = response.company;
+};
 
-const addJob = async () => {
-  await ApiServiceInstance.sendRequest("post", ApiUrls.JOBS, form);
+const addOrEditJob = async () => {
+  let result: any;
+  if (isEdit.value) {
+    result = await ApiServiceInstance.sendRequest("put", `${ApiUrls.JOBS}/${route.params.id}`, form);
+    alert("Edited job");
+  } else {
+    result = await ApiServiceInstance.sendRequest("post", ApiUrls.JOBS, form);
+    alert("Added new job");
+  }
   resetForm();
-  // alert("Added");
-  addToast("Added new job");
-  router.push({ name: "jobs" });
+  router.replace("/jobs/" + result.id);
+
+};
+
+const getJob = async () => {
+  const result = await ApiServiceInstance.sendRequest("get", `${ApiUrls.JOBS}/${route.params.id}`);
+  assignForm(result);
 };
 
 const resetForm = () => {
   form.type = "";
   form.title = "";
 };
+
+onMounted(async () => {
+  if (route.params.id) {
+    isEdit.value = true;
+    await getJob();
+  }
+});
 
 </script>

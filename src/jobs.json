@@ -57,18 +57,18 @@
       }
     },
     {
-      "id": "5",
-      "title": "Full Stack Vue Developer",
       "type": "Full-Time",
+      "title": "Full Stack Vue Developer and C# dedicated developer",
       "description": "Exciting opportunity for a Full-Time Front-End Developer in bustling Atlanta, GA. We are seeking a talented individual with a passion for building elegant and scalable web applications. Join our team and make an impact!",
-      "location": "Atlanta, GA",
       "salary": "$90K - $100K",
+      "location": "Atlanta, GA",
       "company": {
         "name": "Browning Technologies",
         "description": "Browning Technologies is a rapidly growing technology company specializing in e-commerce solutions. We offer a dynamic and collaborative work environment where employees are encouraged to think creatively and innovate.",
         "contactEmail": "contact@consecteturadipisicing.com",
         "contactPhone": "555-555-5555"
-      }
+      },
+      "id": "5"
     },
     {
       "id": "6",
@@ -97,6 +97,34 @@
         "contactPhone": "1234567"
       },
       "id": "CjG3rq3"
+    },
+    {
+      "type": "Part-Time",
+      "title": "asdf",
+      "description": "asdf",
+      "salary": "$60K - $70K",
+      "location": "asdf",
+      "company": {
+        "name": "asdf",
+        "description": "asdf",
+        "contactEmail": "asdf@gmail.com",
+        "contactPhone": "asdf"
+      },
+      "id": "f3_2beq"
+    },
+    {
+      "type": "Part-Time",
+      "title": "Vue Dev",
+      "description": "asdfas",
+      "salary": "$60K - $70K",
+      "location": "New York",
+      "company": {
+        "name": "Unione ELD",
+        "description": "Mastering UI and maintaining logic of the program",
+        "contactEmail": "loremipsum@gmail.com",
+        "contactPhone": "94 009 93 99"
+      },
+      "id": "n40Ex6o"
     }
   ]
 }
